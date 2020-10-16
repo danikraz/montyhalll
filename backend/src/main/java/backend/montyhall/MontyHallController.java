@@ -12,7 +12,7 @@ public class MontyHallController {
     private MontyHallGame montyHallGame;
 
     @GetMapping("/wins")
-    public int getWins(@RequestParam int simulations, @RequestParam boolean switchDoors) {
-        return montyHallGame.wins(simulations, switchDoors);
+    public int getWins(@RequestParam int numberOfSimulations, @RequestParam boolean switchDoors) {
+        return montyHallGame.wins(numberOfSimulations, switchDoors);
     }
 }

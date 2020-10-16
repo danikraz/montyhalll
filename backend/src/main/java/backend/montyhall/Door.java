@@ -1,25 +1,20 @@
 package backend.montyhall;
 
-enum Prize {
-    GOAT,
-    CAR
-}
-
 public class Door {
     private final int number;
-    private Prize value;
+    private Prize prize;
 
     public Door(int number, Prize value) {
         this.number = number;
-        this.value = value;
+        this.prize = value;
     }
 
     public void setValue(Prize value) {
-        this.value = value;
+        this.prize = value;
     }
 
-    public Prize getValue() {
-        return value;
+    public Prize getPrize() {
+        return prize;
     }
 
     public int getNumber() {

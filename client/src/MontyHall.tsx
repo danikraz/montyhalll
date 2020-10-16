@@ -21,9 +21,10 @@ const MontyHall: FC = () => {
   const fetchResult = () => {
     axios
       .get<string>(
-        `/wins?simulations=${numberOfSimulations}&switchDoors=${switchDoors}`)
+        `/wins?simulations=${numberOfSimulations}&switchDoors=${switchDoors}`
+      )
       .then((response) => setSimulationResult(response.data))
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -66,7 +67,7 @@ const MontyHall: FC = () => {
 
         <p>{simulationResult}</p>
       </form>
-      </Container>
+    </Container>
   );
 };
 
