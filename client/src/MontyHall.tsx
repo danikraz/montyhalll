@@ -1,7 +1,7 @@
 import {
   Button,
   Checkbox,
-  Container,
+  Box,
   FormControlLabel,
   TextField,
 } from "@material-ui/core";
@@ -21,14 +21,14 @@ const MontyHall: FC = () => {
   const fetchResult = () => {
     axios
       .get<string>(
-        `/wins?simulations=${numberOfSimulations}&switchDoors=${switchDoors}`
+        `/wins?numberOfSimulations=${numberOfSimulations}&switchDoors=${switchDoors}`
       )
       .then((response) => setSimulationResult(response.data))
       .catch((error) => console.error(error));
   };
 
   return (
-    <Container>
+    <Box display="flex" justifyContent="center">
       <form onSubmit={(e) => playMontyHall(e)}>
         <TextField
           label="Number of simulations"
@@ -67,7 +67,7 @@ const MontyHall: FC = () => {
 
         <p>{simulationResult}</p>
       </form>
-    </Container>
+    </Box>
   );
 };
 

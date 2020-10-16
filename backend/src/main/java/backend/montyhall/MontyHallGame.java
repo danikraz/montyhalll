@@ -16,8 +16,8 @@ public class MontyHallGame {
 
         for (int plays = 0; plays < simulations; plays++) {
             var doors = doors();
-            var firstChosenDoorNumber = random.nextInt(3);
-            timesPlayerWin =+ simulateGame(doors, firstChosenDoorNumber, switchDoors);
+            var firstChosenDoorNumber = random.nextInt(3) + 1;
+            timesPlayerWin += simulateGame(doors, firstChosenDoorNumber, switchDoors);
         }
         return timesPlayerWin;
     }
@@ -40,8 +40,8 @@ public class MontyHallGame {
         } else return 0;
     }
 
-    protected Door chosenDoor (int chosenDoorNumber, List<Door> doors) {
-        return doors.stream().filter(door -> door.getNumber() == chosenDoorNumber).findFirst().orElseThrow(NoSuchElementException::new);
+    protected Door chosenDoor(int chosenDoorNumber, List<Door> doors) {
+        return doors.stream().filter(door -> door.getNumber() == chosenDoorNumber).findAny().orElseThrow(NoSuchElementException::new);
     }
 
     protected Door shownDoor(int chosenDoorNumber, List<Door> doors) {

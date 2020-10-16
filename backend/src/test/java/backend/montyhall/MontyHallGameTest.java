@@ -36,6 +36,18 @@ class MontyHallGameTest {
     }
 
     @Test
+    @DisplayName("Should choose correct door")
+    public void chooseDoor() {
+        var doors = List.of(
+                new Door(1, Prize.GOAT),
+                new Door(2, Prize.CAR),
+                new Door(3, Prize.GOAT));
+
+        var chosenDoor = montyHallGame.chosenDoor(1, doors);
+        assertThat(chosenDoor.getNumber()).isEqualTo(1);
+    }
+
+    @Test
     @DisplayName("Should evaluate a door with a car to a win")
     public void shouldEvaluateWin() {
         var winningDoor = new Door(1, Prize.CAR);
@@ -48,6 +60,7 @@ class MontyHallGameTest {
         var loosingDoor = new Door(2, Prize.GOAT);
         assertThat(montyHallGame.evaluate(loosingDoor)).isEqualTo(0);
     }
+
 
     @Test
     @DisplayName("Should return win if a player chooses the correct door and stays")
