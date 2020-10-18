@@ -18,4 +18,9 @@ Maven
 	npm start  
 
 ##### Run all backend tests #####
-mvn test
+	cd backend
+	mvn test
+
+##### Open cypress for e2e tests #####
+	cd client
+	mvn test
