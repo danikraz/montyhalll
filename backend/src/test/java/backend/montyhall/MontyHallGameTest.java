@@ -1,10 +1,8 @@
 package backend.montyhall;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +23,7 @@ class MontyHallGameTest {
         assertThat(values).containsOnlyOnce(Prize.CAR);
     }
 
-    @Test
+    @RepeatedTest(100)
     @DisplayName("Shown doors should contain a goat and not be the same door that the user chose")
     public void shouldShowDoorWithGoat() {
         var doors = montyHallGame.doors();
