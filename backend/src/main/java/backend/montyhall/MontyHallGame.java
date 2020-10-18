@@ -41,7 +41,7 @@ public class MontyHallGame {
     }
 
     protected Door chosenDoor(int chosenDoorNumber, List<Door> doors) {
-        return doors.stream().filter(door -> door.getNumber() == chosenDoorNumber).findAny().orElseThrow(NoSuchElementException::new);
+        return doors.stream().filter(door -> door.getNumber() == chosenDoorNumber).findFirst().orElseThrow(NoSuchElementException::new);
     }
 
     protected Door shownDoor(int chosenDoorNumber, List<Door> doors) {
