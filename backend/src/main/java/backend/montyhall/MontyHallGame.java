@@ -5,20 +5,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 @Service
 public class MontyHallGame {
     private final Random random = new Random();
 
-    public int wins(int simulations, boolean switchDoors) {
-        var timesPlayerWin = 0;
+    public int wins(int numberOfSimulatins, boolean switchDoors) {
+        AtomicInteger timesPlayerWin = new AtomicInteger();
 
-        for (int plays = 0; plays < simulations; plays++) {
-            var doors = doors();
-            var firstChosenDoorNumber = random.nextInt(3) + 1;
-            timesPlayerWin += simulateGame(doors, firstChosenDoorNumber, switchDoors);
-        }
-        return timesPlayerWin;
+        IntStream.range(0, numberOfSimulatins).parallel().forEach(simulation -> {
+            var doors = shuffledDoors();
+            var randomlyChosenDoorNumber = random.nextInt(3) + 1;
+            timesPlayerWin.addAndGet(simulateGame(doors, randomlyChosenDoorNumber, switchDoors));
+        });
+
+        return timesPlayerWin.get();
     }
 
     protected int simulateGame(List<Door> doors, int chosenDoorNumber, boolean switchDoors) {
@@ -43,11 +46,11 @@ public class MontyHallGame {
         return doors.stream().filter(door -> door.getNumber() == chosenDoorNumber).findFirst().orElseThrow(NoSuchElementException::new);
     }
 
-    protected Door shownDoor(int chosenDoorNumber, List<Door> doors) {
-        return doors.stream().filter(door -> door.getPrize() == Prize.GOAT && door.getNumber() != chosenDoorNumber).findFirst().orElseThrow(NoSuchElementException::new);
+    protected Door shownDoor(int excludedDoorNumber, List<Door> doors) {
+        return doors.stream().filter(door -> door.getPrize() == Prize.GOAT && door.getNumber() != excludedDoorNumber).findFirst().orElseThrow(NoSuchElementException::new);
     }
 
-    protected List<Door> doors() {
+    protected List<Door> shuffledDoors() {
         var doors = List.of(
                 new Door(1, Prize.GOAT),
                 new Door(2, Prize.GOAT),

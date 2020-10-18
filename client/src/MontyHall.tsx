@@ -67,16 +67,17 @@ const MontyHall: FC = () => {
         <img src={montyHall} alt="monty hall" />
       </Box>
 
-      <form onSubmit={(e) => playMontyHall(e)}>
+      <form data-cy="monty-form" onSubmit={(e) => playMontyHall(e)}>
         <Box display="flex" justifyContent="center" mt={2}>
           <TextField
+            data-cy="simulations-input"
             className={classes.spacing}
             label="Number of simulations"
             type="number"
             InputLabelProps={{
               shrink: true,
             }}
-            InputProps={{ inputProps: { min: 1 } }}
+            InputProps={{ inputProps: { min: 1, max: 2147483647 } }}
             variant="outlined"
             onChange={(e) =>
               setNumberOfSimulations(
@@ -112,7 +113,7 @@ const MontyHall: FC = () => {
           {promiseInProgress && <CircularProgress />}
 
           {simulationResult && !promiseInProgress && (
-            <Card>
+            <Card data-cy="simulations-result">
                 <CardContent>
                 <Typography variant="body1">
                 {`The player won ${simulationResult} times!`}

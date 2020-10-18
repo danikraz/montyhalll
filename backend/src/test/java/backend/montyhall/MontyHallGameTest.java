@@ -16,7 +16,7 @@ class MontyHallGameTest {
     @Test
     @DisplayName("Should create three doors with one containing a car")
     public void shouldReturnDoorsWithPrizes() {
-        var doors = montyHallGame.doors();
+        var doors = montyHallGame.shuffledDoors();
         var values = doors.stream().map(Door::getPrize).collect(Collectors.toList());
 
         assertThat(doors).hasSize(3);
@@ -26,7 +26,7 @@ class MontyHallGameTest {
     @RepeatedTest(100)
     @DisplayName("Shown doors should contain a goat and not be the same door that the user chose")
     public void shouldShowDoorWithGoat() {
-        var doors = montyHallGame.doors();
+        var doors = montyHallGame.shuffledDoors();
         var shownDoor = montyHallGame.shownDoor(1, doors);
 
         assertThat(shownDoor.getNumber()).isNotEqualTo(1);
@@ -69,5 +69,16 @@ class MontyHallGameTest {
                 new Door(3, Prize.GOAT));
 
         assertThat(montyHallGame.simulateGame(doors, 2, false)).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("Should return a lost if a player chooses the incorrect door and stays")
+    public void simulateLost() {
+        var doors = List.of(
+                new Door(1, Prize.GOAT),
+                new Door(2, Prize.CAR),
+                new Door(3, Prize.GOAT));
+
+        assertThat(montyHallGame.simulateGame(doors, 1, false)).isEqualTo(0);
     }
 }
