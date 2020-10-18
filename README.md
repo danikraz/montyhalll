@@ -23,4 +23,5 @@ Maven
 
 ##### Open cypress for e2e tests #####
 	cd client
-	mvn test
+	npm run cypress:open
+(note that backend must be running for the e2e tests)
