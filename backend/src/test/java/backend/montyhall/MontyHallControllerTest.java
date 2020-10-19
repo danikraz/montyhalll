@@ -31,7 +31,7 @@ class MontyHallControllerTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
-        verify(montyHallGame, times(1)).wins(anyInt(), anyBoolean());
+        verify(montyHallGame, times(1)).wins(100, false);
         assertEquals("100", response);
     }
 }
